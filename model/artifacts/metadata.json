@@ -1,0 +1,15 @@
+{
+  "feature_columns": [
+    "dur",
+    "proto",
+    "service",
+    "state",
+    "sbytes",
+    "dbytes"
+  ],
+  "target_column": "label",
+  "model_type": "notebook_cnn_lstm",
+  "threshold": 0.5,
+  "input_dim": 6,
+  "preprocessor_type": "notebook_labelencoder_scaler"
+}

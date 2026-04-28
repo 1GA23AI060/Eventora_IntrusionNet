@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Network Intrusion Detection</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="topbar">
+      <div>
+        <p class="eyebrow">AI Network Defense Console</p>
+        <h1>CNN-BiLSTM Threat Detection</h1>
+      </div>
+      <div class="status-group">
+        <div class="status-pill" id="apiStatus">Checking API...</div>
+        <div class="status-pill subtle" id="thresholdStatus">Threshold --</div>
+      </div>
+    </section>
+
+    <section class="dashboard">
+      <div class="metric total">
+        <span>Total Events</span>
+        <strong id="totalCount">0</strong>
+      </div>
+      <div class="metric normal">
+        <span>Normal</span>
+        <strong id="normalCount">0</strong>
+      </div>
+      <div class="metric attack">
+        <span>Attack</span>
+        <strong id="attackCount">0</strong>
+      </div>
+      <div class="metric risk">
+        <span>Avg Risk</span>
+        <strong id="riskScore">0%</strong>
+      </div>
+    </section>
+
+    <section class="insights">
+      <div class="signal-panel">
+        <div class="panel-header">
+          <h2>Traffic Split</h2>
+          <span id="attackRateLabel">0% attack rate</span>
+        </div>
+        <div class="split-bar">
+          <div class="split-normal" id="normalBar"></div>
+          <div class="split-attack" id="attackBar"></div>
+        </div>
+      </div>
+      <div class="signal-panel">
+        <div class="panel-header">
+          <h2>High Confidence Alerts</h2>
+          <span id="confidenceLabel">0 events</span>
+        </div>
+        <div class="confidence-track">
+          <div id="confidenceBar"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="panel input-panel">
+        <div class="panel-header">
+          <h2>Single Prediction</h2>
+          <span>JSON features</span>
+        </div>
+        <textarea id="jsonInput" spellcheck="false">{
+  "dur": 0.1,
+  "proto": "tcp",
+  "service": "http",
+  "state": "FIN"
+}</textarea>
+        <button id="predictJson">Predict JSON</button>
+      </div>
+
+      <div class="panel input-panel">
+        <div class="panel-header">
+          <h2>CSV Prediction</h2>
+          <span>Batch upload</span>
+        </div>
+        <label class="upload-box" for="csvInput">
+          <input id="csvInput" type="file" accept=".csv" />
+          <strong>Choose CSV file</strong>
+          <small id="fileName">No file selected</small>
+        </label>
+        <button id="predictCsv">Predict CSV</button>
+      </div>
+    </section>
+
+    <section class="setup-panel" id="setupPanel">
+      <div>
+        <h2>Model Training Required</h2>
+        <p>Place the UNSW-NB15 training and testing CSV files in the data folder, then run the training command from the README.</p>
+      </div>
+      <code>python model/train.py --train data/UNSW_NB15_training-set.csv --test data/UNSW_NB15_testing-set.csv --epochs 25 --min-precision 0.90</code>
+    </section>
+
+    <section class="results-panel">
+      <div class="panel-header">
+        <h2>Prediction Results</h2>
+        <span id="resultSummary">Waiting for input</span>
+      </div>
+      <div id="message" class="message"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Row</th>
+              <th>Prediction</th>
+              <th>Severity</th>
+              <th>Attack Probability</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

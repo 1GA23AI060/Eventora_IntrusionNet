@@ -1,0 +1,13 @@
+{
+  "feature_columns": [
+    "dur",
+    "proto",
+    "service",
+    "state",
+    "sbytes",
+    "dbytes"
+  ],
+  "threshold": 0.5,
+  "model_type": "demo_random_forest",
+  "warning": "Demo model for UI/API testing only. Train train.py with UNSW-NB15 for real results."
+}
